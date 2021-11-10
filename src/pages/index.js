@@ -1,31 +1,20 @@
-import * as React from "react"
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
+import React, { useEffect } from "react";
+import Layout from "../components/Layout";
+import { Canvas } from "@react-three/fiber";
+import { useDispatch, useSelector } from "react-redux";
+import { increment, decrement, selectAge } from "../redux/user/user-slice";
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+const IndexPage = () => {
+  const dispatch = useDispatch();
+  const age = useSelector(selectAge);
 
-const IndexPage = () => (
-  <Layout>
-    <Seo title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <StaticImage
-      src="../images/gatsby-astronaut.png"
-      width={300}
-      quality={95}
-      formats={["auto", "webp", "avif"]}
-      alt="A Gatsby astronaut"
-      style={{ marginBottom: `1.45rem` }}
-    />
-    <p>
-      <Link to="/page-2/">Go to page 2</Link> <br />
-      <Link to="/using-typescript/">Go to "Using TypeScript"</Link> <br />
-      <Link to="/using-ssr">Go to "Using SSR"</Link> <br />
-      <Link to="/using-dsg">Go to "Using DSG"</Link>
-    </p>
-  </Layout>
-)
+  return (
+    <Layout>
+      <button onClick={() => dispatch(increment())}>Increment</button>
+      <button onClick={() => dispatch(decrement())}>Decrement</button>
+      <span>Age:{age}</span>
+    </Layout>
+  );
+};
 
-export default IndexPage
+export default IndexPage;
